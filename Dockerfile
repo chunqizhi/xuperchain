@@ -3,10 +3,12 @@ RUN apt update
 WORKDIR /go/src/github.com/xuperchain/xuperunion
 COPY . .
 RUN make
+RUN cd output && ./xchain-cli createChain
 
 # ---
-FROM ubuntu:16.04
+FROM ubuntu:latest
 WORKDIR /home/work/xuperunion/
+VOLUME /home/work/xuperunion/conf
 COPY --from=builder /go/src/github.com/xuperchain/xuperunion/output/ .
 EXPOSE 37101 47101
-CMD ./xchain-cli createChain && ./xchain
+ENTRYPOINT ["./xchain"]

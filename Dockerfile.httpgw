@@ -1,0 +1,11 @@
+FROM golang:1.12.5 AS builder
+RUN apt update
+WORKDIR /go/src/github.com/xuperchain/xuperunion
+COPY . .
+RUN make
+
+# ---
+FROM ubuntu:latest
+COPY --from=builder /go/src/github.com/xuperchain/xuperunion/output/xchain-httpgw /usr/local/bin
+EXPOSE 8123
+ENTRYPOINT ["xchain-httpgw"]
