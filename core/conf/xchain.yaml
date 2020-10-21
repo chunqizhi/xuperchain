@@ -60,6 +60,10 @@ kernel:
   # minNewChainAmount 设置创建平行链时最少要转多少钱到同链名address
   minNewChainAmount: "100"
   newChainWhiteList:
+    - ddk3yDs7in1ChmgZwjc6znpw59NR7ZZ49: true
+    - hYERW5pVQZAaMHkrw42AjtSmycLDgYeLy: true
+    - ghHYrpDpedrWwBjZQ954Zz9fu7JNDUQQy: true
+    - XJPtm7Szq6YE8KHskhioCMFP4ydmL4aiN: true
     - dpzuVdosQrF2kmzumhVeFQZa1aYcdgFpN: true
 
 # 管理native合约的配置
