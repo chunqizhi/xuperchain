@@ -7,8 +7,10 @@ RUN cd output && ./xchain-cli createChain
 
 # ---
 FROM ubuntu:latest
+RUN apt-get update && apt-get install -yq gcc
 WORKDIR /home/work/xuperunion/
 VOLUME /home/work/xuperunion/conf
 COPY --from=builder /go/src/github.com/xuperchain/xuperunion/output/ .
+COPY --from=builder /go/src/github.com/xuperchain/xuperunion/core/contractsdk/cpp/build/group_chain.wasm .
 EXPOSE 37101 47101
 ENTRYPOINT ["./xchain"]
