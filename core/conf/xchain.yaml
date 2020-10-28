@@ -61,10 +61,14 @@ kernel:
   minNewChainAmount: "100"
   newChainWhiteList:
     - dpzuVdosQrF2kmzumhVeFQZa1aYcdgFpN: true
+    - ddk3yDs7in1ChmgZwjc6znpw59NR7ZZ49: true
+    - hYERW5pVQZAaMHkrw42AjtSmycLDgYeLy: true
+    - ghHYrpDpedrWwBjZQ954Zz9fu7JNDUQQy: true
+    - XJPtm7Szq6YE8KHskhioCMFP4ydmL4aiN: true
 
 # 合约通用配置
 contract:
-  enableUpgrade: false
+  enableUpgrade: true
 
 # wasm合约配置
 wasm:
@@ -74,11 +78,11 @@ wasm:
 
 # 管理native合约的配置
 native:
-  enable: false
+  enable: true
 
   # docker相关配置
   docker:
-    enable: false
+    enable: true
     # 合约运行的镜像名字
     imageName: "docker.io/centos:7.5.1804"
     # cpu核数限制，可以为小数
@@ -112,7 +116,7 @@ prune:
 # 背书服务相关配置
 xendorser:
   # 是否开启默认的XEndorser背书服务
-  enable: false
+  enable: true
   module: "default"
   #confPath: "./conf/xendorser.yaml"
 
