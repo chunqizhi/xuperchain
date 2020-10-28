@@ -1,0 +1,4 @@
+FROM ubuntu:latest
+COPY ./output/xchain-httpgw /usr/local/bin
+EXPOSE 8098
+ENTRYPOINT ["xchain-httpgw"]
