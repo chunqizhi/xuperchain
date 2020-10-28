@@ -1,0 +1,9 @@
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -yq gcc
+WORKDIR /home/work/xuperunion/
+VOLUME /home/work/xuperunion/conf
+COPY ./output/ .
+COPY ./docker-entrypoint-mainNode.sh .
+COPY ./core/contractsdk/cpp/build/group_chain.wasm .
+EXPOSE 37101 47101 37200
+ENTRYPOINT ["./docker-entrypoint-mainNode.sh"]
