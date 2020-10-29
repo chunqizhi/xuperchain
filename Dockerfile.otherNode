@@ -1,9 +1,8 @@
-FROM ubuntu:latest
-RUN apt-get update && apt-get install -yq gcc
+FROM ubuntu-zcq-gcc-vim:latest
 WORKDIR /home/work/xuperunion/
 VOLUME /home/work/xuperunion/conf
 COPY ./output/ .
-COPY ./docker-entrypoint.sh .
+COPY ./docker-entrypoint-otherNode.sh .
 COPY ./core/contractsdk/cpp/build/group_chain.wasm .
 EXPOSE 37101 47101 37200
 ENTRYPOINT ["./docker-entrypoint-otherNode.sh"]
