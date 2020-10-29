@@ -64,3 +64,42 @@ docker run -d --network test --name httpgw -p 8098:8098 zfq17876911936/chaojigon
 curl http://localhost:8098/v1/get_block_by_height -d '{"bcname":"xuper", "height":10}'
 
 
+group_chain
+
+创建合约账号
+
+./xchain-cli account new --account 1111111111111111 --fee 1000
+
+给合约账号充值
+
+./xchain-cli transfer --to XC1111111111111111@xuper --amount 100000000
+
+./xchain-cli account balance XC1111111111111111@xuper
+
+部署群组管理合约到 root 链
+
+./xchain-cli wasm deploy --account XC1111111111111111@xuper -n group_chain ./group_chain.wasm  --fee 200000
+
+使 HelloChain 具备群组特性
+
+./xchain-cli wasm invoke group_chain --method addChain -a '{"bcname":"HelloChain"}' --fee 76
+
+添加节点
+
+./xchain-cli wasm invoke group_chain --method addNode -a '{"bcname":"HelloChain","ip":"/ip4/127.0.0.1/tcp/47103/p2p/QmT97cYTBFzvfqZGpGxuQ9WqakY2dW1npFckpkkAPAbEsW","address":"R6MPzRvnQZks2euhQepgo2buqSSYGNz1C"}' --fee 2000
+
+vi createChain.json
+
+{
+    "Module": "kernel",
+    "Method": "CreateBlockChain",
+    "Args": {
+        "name": "HelloChain",
+        "data": "{\"version\": \"1\", \"consensus\": {\"miner\":\"dXQWJAXw9ZV2Q2oJMUs4cU15bG42uXCf3\", \"type\":\"single\"},\"predistribution\":[{\"address\": \"b2grdYq48pYJpBHFHYPSmucR7vpEm8hH3\",\"quota\": \"1000000000000000\"}],\"maxblocksize\": \"128\",\"period\": \"3000\",\"award\": \"1000000\"}"
+    }
+}
+
+创建平行链
+./xchain-cli transfer --to HelloChain --amount 100 --desc createChain.json
+
+
