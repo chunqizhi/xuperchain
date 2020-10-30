@@ -100,3 +100,44 @@ vi createChain.json
 ./xchain-cli transfer --to HelloChain --desc createChain.json
 
 
+提案
+
+vi myprop.json
+
+{
+ "module": "proposal",
+ "method": "Propose",
+ "args" : {
+   "min_vote_percent": 51,
+   "stop_vote_height": 80
+ },
+ "trigger": {
+      "height": 88,
+      "module": "consensus",
+      "method": "update_consensus",
+      "args" : {
+          "name": "tdpos",
+           "config": {
+              "version":"2",
+              "proposer_num":"3",
+              "period":"3000",
+              "term_gap":"6000",
+              "alternate_interval":"6000",
+              "term_interval":"9000",
+              "block_num":"10",
+              "vote_unit_price":"1",
+              "init_proposer": {
+                "1":["hPus3Ypw2qUPantUn68hQUKCRXq3wkMXz","nEWYf18DUKjPnCeCAraErbN8DdRzhy7H6","V4yKrVt1T66ygq1zVhLEBEJeLVEKWbJLF"]
+              },
+              "init_proposer_neturl": {
+                "1": ["/ip4/172.21.0.2/tcp/47101/p2p/QmSRe1kPZXfAqePMaLpoAbDxPn75LpPLAwZy1j1QdzNatq", "/ip4/172.21.0.4/tcp/47101/p2p/QmPAnHg6E71LokxmjtsyWvM9bE6R3a7GRTEKS7RdYzvju2", "/ip4/172.21.0.5/tcp/47101/p2p/QmYALDeacczRQcsixJsLWX6X7akj4p8LaMcaLeWzcYha5g"]
+              }
+            }
+      }
+  }
+}
+
+./xchain-cli transfer --to `cat data/keys/address` --desc ./myprop.json
+
+./xchain-cli vote --amount 80000000000000000000 --frozen 99 3e2f4fbfd2c607c3e84fab5bafab91cf034a3eecc235b013ddf0043b6a96f7c9
+
