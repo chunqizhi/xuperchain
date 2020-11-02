@@ -1,8 +1,9 @@
-FROM ubuntu-zcq-gcc-vim:latest
+FROM ubuntu-zcq-gcc-vim-docker:latest
 WORKDIR /home/work/xuperunion/
 VOLUME /home/work/xuperunion/conf
 COPY ./output/ .
 COPY ./docker-entrypoint-mainNode.sh .
 COPY ./core/contractsdk/cpp/build/group_chain.wasm .
+COPY ./core/contractsdk/cpp/build/counter.wasm .
 EXPOSE 37101 47101 37200
 ENTRYPOINT ["./docker-entrypoint-mainNode.sh"]

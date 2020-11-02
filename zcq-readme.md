@@ -145,3 +145,35 @@ vi myprop.json
 ./xchain-cli vote --amount 1000000000000000 --frozen 99 3e2f4fbfd2c607c3e84fab5bafab91cf034a3eecc235b013ddf0043b6a96f7c9
 
 
+合约部署
+
+./xchain-cli account new --account 1111111111111111 --fee 1000
+
+./xchain-cli transfer --to XC1111111111111111@xuper --amount 10000000000
+
+echo "XC1111111111111111@xuper/dpzuVdosQrF2kmzumhVeFQZa1aYcdgFpN" > data/acl/addrs
+
+./xchain-cli wasm deploy --account XC1111111111111111@xuper --cname counter -m -a '{"creator": "someone"}' ./counter.wasm
+PreExe contract response : rpc error: code = Unknown desc = trap error:go.runtime.resetMemoryDataView can't be resolved, logid:1604283897241107969_1_8081
+
+./xchain-cli multisig sign --tx tx.out --output sign.out
+
+./xchain-cli multisig send --tx tx.out sign.out sign.out
+
+./xchain-cli account contracts --account XC1111111111111111@xuper
+
+./xchain-cli wasm invoke --method Increase -a '{"key":"test"}' counter --fee 10
+
+
+# 部署golang native合约
+./xchain-cli native deploy --account XC1111111111111111@xuper -a '{"creator":"XC1111111111111111@xuper"}' --fee 15587517 --runtime go ./counter --cname golangcounter
+PreExe contract response : rpc error: code = Unknown desc = no such image, logid:1604284265245159546_1_8081
+PreExe contract response : rpc error: code = Unknown desc = waiting native code start timeout. error:rpc error: code = DeadlineExceeded desc = context deadline exceeded, logid:1604286005763509401_1_8081
+
+# 调用golang native合约，Increase方法，golangcounter为合约名
+./xchain-cli native invoke --method Increase -a '{"key":"test"}' golangcounter --fee 10
+
+# 调用golang native合约，Get方法，golangcounter为合约名
+./xchain-cli native query --method Get -a '{"key":"test"}' golangcounter
+
+
