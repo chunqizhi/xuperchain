@@ -4,7 +4,7 @@
 # ./zcqadd.sh 3 192.168.40.136
 i=1
 a=3
-if test -n $1; then
+if test -n "$1"; then
 	a=$1
 fi
 echo "创建 ${a} 个节点的联盟链"
@@ -78,7 +78,7 @@ done
 cd node1
 node1=`./xchain-cli netURL preview`
 node1=`echo \"${node1}\"`
-if test -n $2; then
+if test -n "$2"; then
 	node1=${node1/127.0.0.1/$2}
 fi
 cd -
