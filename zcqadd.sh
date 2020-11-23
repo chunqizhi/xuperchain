@@ -48,6 +48,8 @@ allAddrs=`echo ${as// /,}`
 sed -i "s/\"dpzuVdosQrF2kmzumhVeFQZa1aYcdgFpN\"/${allAddrs}/" node1/data/config/xuper.json
 # 修改 proposer_num 的值
 sed -i "s/\"proposer_num\": \"1\"/\"proposer_num\": \"${a}\"/" node1/data/config/xuper.json
+# 是否是无币区块链
+sed -i "s/\"nofee\": false/\"nofee\": true/" node1/data/config/xuper.json
 p=1
 # 删除创世区块文件的 init_proposer_neturl 部分
 while (( ${p}<=5 ))
@@ -55,6 +57,9 @@ do
 	sed -i '37d' node1/data/config/xuper.json
 	let p++
 done
+
+# 支持群组合约
+sed -i "/new_account_resource_amount/a\\    \"group_chain_contract\": {\n        \"module_name\": \"wasm\",\n        \"contract_name\": \"group_chain\",\n        \"method_name\": \"list\",\n        \"args\":{}\n    }," node1/data/config/xuper.json
 
 o=2
 # 公用创建区块文件
@@ -90,6 +95,7 @@ do
 	let k++
 done
 
+#exit
 
 # 本地测试
 # 1.先启动 node1
